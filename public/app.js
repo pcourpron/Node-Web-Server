@@ -6,7 +6,7 @@ $(document).ready(function(){
     }).then(function(data){
 
         data.forEach(element => {
-            var row = $('<row>')
+            var row = $(`<row data-id = ${element._id}>`)
             row.append($(`<h2>${element.title}</h2>`))
             row.append($(`<p data-id = ${element._id}>${element.body}</p>`))
             row.append($(`<a href=${element.link}>${element.link}</a>`))
@@ -19,7 +19,6 @@ $(document).ready(function(){
     $(document).on("click", "p", function() {
         $("#notes").empty();
         var thisId = $(this).attr("data-id");
-      
         $.ajax({
           method: "GET",
           url: "/articles/" + thisId
@@ -61,7 +60,14 @@ $(document).ready(function(){
       
 
 
-
+$(document).on('click','#scrape',function(){
+    $.ajax({
+        method:'GET',
+        url:'/scrape'
+    }).then(function(data){
+        window.location.reload()
+    })
+})
 
 })
 
